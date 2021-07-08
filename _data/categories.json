@@ -1,0 +1,22 @@
+[
+    {
+        "name":"Breakfast",
+        "description" : "Indian Breakfast recipies"
+    },
+    {
+        "name":"Lunch",
+        "description" : "Indian Lunch recipies"
+    },
+    {
+        "name":"Dinner",
+        "description" : "Indian Dinner recipies"
+    },
+    {
+        "name":"Sweets",
+        "description" : "Indian Sweets deserts recipies"
+    },
+    {
+        "name":"Others",
+        "description" : "Other recipies"
+    }
+]
