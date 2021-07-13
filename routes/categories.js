@@ -1,4 +1,6 @@
 const express = require("express");
+const recipiesRouter = require("./recipies");
+
 const {
   getAllCategories,
   getCategoryById,
@@ -10,6 +12,7 @@ const {
 
 const router = express.Router();
 
+router.use("/:categoryId/recipies", recipiesRouter);
 router.route("/").get(getAllCategories).post(createCategory);
 router
   .route("/:id")

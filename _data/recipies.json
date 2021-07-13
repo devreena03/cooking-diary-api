@@ -1,0 +1,70 @@
+[
+    {
+        "name":"Kheer",
+        "description" : "Indian traditinal sweet dish",
+        "ingrediants" : [
+            "Rice 1 cup",
+            "milk 1 ltr",
+            "sugar 1 cup"
+        ],
+        "process" : [
+            "step1: wash rice and boil the milk",
+            "step2: once milk boiled add rice and cook it for 45min or till rice become soft",
+            "step3: switch off the flame and add sugar"
+        ],
+        "tags": ["#milk-item"],
+        "category":"5d713a66ec8f2b88b8f898b8",
+        "preprationTime":45,
+        "user": "5c8a1d5b0190b214360dc031"
+    },
+    {
+        "name":"Peda",
+        "description" : "Indian traditinal sweet dish",
+        "ingrediants" : [
+            "Milk powder 1 cup",
+            "milk 1 tbs",
+            "sugar powder 1/4 cup"
+        ],
+        "process" : [
+            "step1: wash rice and boil the milk",
+            "step2: once milk boiled add rice and cook it for 45min or till rice become soft",
+            "step3: switch off the flame and add sugar"
+        ],
+        "tags": ["#milk-item"],
+        "category":"5d713a66ec8f2b88b8f898b8",
+        "preprationTime":10,
+        "user": "5c8a1d5b0190b214360dc031"
+    },
+    {
+        "name":"Veg Pulao",
+        "description" : "Indian traditinal main course",
+        "ingrediants" : [
+            "Rice 1 cup",
+            "Salt",
+            "water 2 cup", "dry fruits","ghee"
+        ],
+        "process" : [
+            "step1: wash rice and boil the milk",
+            "step2: once milk boiled add rice and cook it for 45min or till rice become soft",
+            "step3: switch off the flame and add sugar"
+        ],
+        "tags": ["#pulao"],
+        "category":"5d713a66ec8f2b88b8f830b8",
+        "preprationTime":15
+    }, {
+        "name":"Roti",
+        "description" : "Indian traditinal sweet dish",
+        "ingrediants" : [
+            "Atta 1 cup",
+            "water 1/2 cup"
+        ],
+        "process" : [
+            "step1: wash rice and boil the milk",
+            "step2: once milk boiled add rice and cook it for 45min or till rice become soft",
+            "step3: switch off the flame and add sugar"
+        ],
+        "tags": ["#bread"],
+        "category":"5d713995b721c3bb38c1f5d0",
+        "preprationTime":10
+    }
+]
