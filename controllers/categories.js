@@ -8,13 +8,7 @@ const log = require("../utils/Logger")("Category controller");
 // @route   GET /api/v1/categories
 // @access  Private
 exports.getAllCategories = asyncHandler(async (req, res, next) => {
-  const categories = await Category.find({ user: req.user.id });
-
-  res.status(200).json({
-    success: true,
-    count: categories.length,
-    data: categories,
-  });
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc    GET single category

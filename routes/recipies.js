@@ -1,4 +1,5 @@
 const express = require("express");
+const Recipe = require("../models/Recipe");
 const {
   getAllrecipies,
   getRecipeById,
@@ -6,14 +7,18 @@ const {
   updateRecipe,
   deleteRecipe,
 } = require("../controllers/recipies");
+const advancedResults = require("../middlewares/advancedResult");
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(protect, getAllrecipies).post(protect, createRecipe);
+const { protect } = require("../middlewares/auth");
+
+router.use(protect);
+
 router
-  .route("/:id")
-  .get(protect, getRecipeById)
-  .put(protect, updateRecipe)
-  .delete(protect, deleteRecipe);
+  .route("/")
+  .get(advancedResults(Recipe), getAllrecipies)
+  .post(createRecipe);
+router.route("/:id").get(getRecipeById).put(updateRecipe).delete(deleteRecipe);
 
 module.exports = router;

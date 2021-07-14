@@ -12,15 +12,14 @@ exports.getAllrecipies = asyncHandler(async (req, res, next) => {
   if (req.params.categoryId) {
     log.info("categoryId :", req.params.categoryId);
     recipies = await Recipe.find({ category: req.params.categoryId });
+    res.status(200).json({
+      success: true,
+      count: recipies.length,
+      data: recipies,
+    });
   } else {
-    recipies = await Recipe.find();
+    res.status(200).json(res.advancedResults);
   }
-
-  res.status(200).json({
-    success: true,
-    count: recipies.length,
-    data: recipies,
-  });
 });
 
 // @desc    GET single Recipe

@@ -1,5 +1,6 @@
 const express = require("express");
 const recipiesRouter = require("./recipies");
+const Category = require("../models/Category");
 
 const {
   getAllCategories,
@@ -9,18 +10,24 @@ const {
   deleteCategory,
   categoryPhotoUpload,
 } = require("../controllers/categories");
-
-const { protect, authorize } = require("../middlewares/auth");
+const advancedResults = require("../middlewares/advancedResult");
+const { protect } = require("../middlewares/auth");
 
 const router = express.Router();
 
 router.use("/:categoryId/recipies", recipiesRouter);
-router.route("/").get(protect, getAllCategories).post(protect, createCategory);
+
+router.use(protect);
+
+router
+  .route("/")
+  .get(advancedResults(Category), getAllCategories)
+  .post(createCategory);
 router
   .route("/:id")
-  .get(protect, getCategoryById)
-  .put(protect, updateCategory)
-  .delete(protect, deleteCategory);
-router.route("/:id/photo").put(protect, categoryPhotoUpload);
+  .get(getCategoryById)
+  .put(updateCategory)
+  .delete(deleteCategory);
+router.route("/:id/photo").put(categoryPhotoUpload);
 
 module.exports = router;
