@@ -12,6 +12,8 @@ dotenv.config({ path: "./config/config.env" });
 const connectDb = require("./config/db");
 const categoriesRouter = require("./routes/categories");
 const recipiesRouter = require("./routes/recipies");
+const authRouter = require("./routes/auth");
+
 const errorHandler = require("./middlewares/error");
 const app = express();
 
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/recipies", recipiesRouter);
+app.use("/api/v1/auth", authRouter);
 //errorhandler
 app.use(errorHandler);
 

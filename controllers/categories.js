@@ -8,7 +8,7 @@ const log = require("../utils/Logger")("Category controller");
 // @route   GET /api/v1/categories
 // @access  Private
 exports.getAllCategories = asyncHandler(async (req, res, next) => {
-  const categories = await Category.find();
+  const categories = await Category.find({ user: req.user.id });
 
   res.status(200).json({
     success: true,
@@ -31,6 +31,16 @@ exports.getCategoryById = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("resource not found", 404));
   }
 
+  // Make sure user is category owner
+  if (category.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to access the resource`,
+        403
+      )
+    );
+  }
+
   res.status(200).json({
     success: true,
     data: category,
@@ -42,6 +52,7 @@ exports.getCategoryById = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createCategory = asyncHandler(async (req, res, next) => {
   log.info("body data", req.body);
+  req.body.user = req.user.id;
   const category = await Category.create(req.body);
 
   res.status(201).json({
@@ -56,14 +67,26 @@ exports.createCategory = asyncHandler(async (req, res, next) => {
 exports.updateCategory = asyncHandler(async (req, res, next) => {
   log.info("body data", req.body);
 
-  const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const category = await Category.findById(req.params.id);
 
   if (!category) {
     return next(new ErrorResponse("resource not found", 404));
   }
+
+  // Make sure user is category owner
+  if (category.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to update this category`,
+        403
+      )
+    );
+  }
+
+  category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     success: true,
@@ -77,11 +100,23 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 exports.deleteCategory = asyncHandler(async (req, res, next) => {
   log.info(" id : ", req.params.id);
 
-  const category = await Category.findByIdAndDelete(req.params.id);
+  const category = await Category.findById(req.params.id);
 
   if (!category) {
     return next(new ErrorResponse("resource not found", 404));
   }
+  // Make sure user is category owner
+  if (category.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to update this category`,
+        403
+      )
+    );
+  }
+
+  category.remove();
+
   res.sendStatus(202);
 });
 
@@ -92,6 +127,16 @@ exports.categoryPhotoUpload = asyncHandler(async (req, res, next) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) return next(new ErrorResponse("resource not found", 404));
+
+  // Make sure user is category owner
+  if (category.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to update this category`,
+        403
+      )
+    );
+  }
 
   if (!req.files) return next(new ErrorResponse("Please upload a file", 400));
 

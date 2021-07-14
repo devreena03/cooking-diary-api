@@ -50,7 +50,8 @@
         ],
         "tags": ["#pulao"],
         "category":"5d713a66ec8f2b88b8f830b8",
-        "preprationTime":15
+        "preprationTime":15,
+        "user": "5d7a514b5d2c12c7449be044"
     }, {
         "name":"Roti",
         "description" : "Indian traditinal sweet dish",
@@ -65,6 +66,7 @@
         ],
         "tags": ["#bread"],
         "category":"5d713995b721c3bb38c1f5d0",
-        "preprationTime":10
+        "preprationTime":10,
+        "user": "5d7a514b5d2c12c7449be044"
     }
 ]

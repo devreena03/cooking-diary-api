@@ -35,11 +35,11 @@ const RecipeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  //   user: {
-  //     type: mongoose.Schema.ObjectId,
-  //     ref: "User",
-  //     required: true,
-  //   },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
   photo: {
     type: String,
     default: "no-photo.jpg",
@@ -53,7 +53,6 @@ const RecipeSchema = new mongoose.Schema({
 });
 
 RecipeSchema.pre("save", function (next) {
-  console.log("slugify ran..", this.name);
   this.slug = slugify(this.name, {
     lower: true,
   });

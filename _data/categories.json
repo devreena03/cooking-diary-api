@@ -2,26 +2,31 @@
     {
         "_id": "5d713995b721c3bb38c1f5d0",
         "name":"Breakfast",
-        "description" : "Indian Breakfast recipies"
+        "description" : "Indian Breakfast recipies",
+        "user": "5d7a514b5d2c12c7449be044"
     },
     {
         "_id": "5d713a66ec8f2b88b8f830b8",
         "name":"Lunch",
-        "description" : "Indian Lunch recipies"
+        "description" : "Indian Lunch recipies",
+        "user": "5d7a514b5d2c12c7449be044"
     },
     {
         "_id": "5d713a66ec8f2b88b8f830b9",
         "name":"Dinner",
-        "description" : "Indian Dinner recipies"
+        "description" : "Indian Dinner recipies",
+        "user": "5d7a514b5d2c12c7449be044"
     },
     {
         "_id": "5d713a66ec8f2b88b8f898b8",
         "name":"Sweets",
-        "description" : "Indian Sweets deserts recipies"
+        "description" : "Indian Sweets deserts recipies",
+        "user": "5c8a1d5b0190b214360dc031"
     },
     {
         "_id": "5d713a66ec8f2b88b8f890b8",
         "name":"Others",
-        "description" : "Other recipies"
+        "description" : "Other recipies",
+        "user": "5d7a514b5d2c12c7449be042"
     }
 ]

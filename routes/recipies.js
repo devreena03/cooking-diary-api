@@ -9,7 +9,11 @@ const {
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(getAllrecipies).post(createRecipe);
-router.route("/:id").get(getRecipeById).put(updateRecipe).delete(deleteRecipe);
+router.route("/").get(protect, getAllrecipies).post(protect, createRecipe);
+router
+  .route("/:id")
+  .get(protect, getRecipeById)
+  .put(protect, updateRecipe)
+  .delete(protect, deleteRecipe);
 
 module.exports = router;

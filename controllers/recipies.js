@@ -36,6 +36,16 @@ exports.getRecipeById = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("resource not found", 404));
   }
 
+  // Make sure user is recipe owner
+  if (recipe.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to access the resource`,
+        403
+      )
+    );
+  }
+
   res.status(200).json({
     success: true,
     data: recipe,
@@ -47,6 +57,8 @@ exports.getRecipeById = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createRecipe = asyncHandler(async (req, res, next) => {
   log.info("body data", req.body);
+
+  req.body.user = req.user.id;
   const recipe = await Recipe.create(req.body);
 
   res.status(201).json({
@@ -61,14 +73,26 @@ exports.createRecipe = asyncHandler(async (req, res, next) => {
 exports.updateRecipe = asyncHandler(async (req, res, next) => {
   log.info("body data", req.body);
 
-  const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  let recipe = await Recipe.findById(req.params.id);
 
   if (!recipe) {
     return next(new ErrorResponse("resource not found", 404));
   }
+
+  // Make sure user is recipe owner
+  if (recipe.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to access the resource`,
+        403
+      )
+    );
+  }
+
+  recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     success: true,
@@ -82,10 +106,21 @@ exports.updateRecipe = asyncHandler(async (req, res, next) => {
 exports.deleteRecipe = asyncHandler(async (req, res, next) => {
   log.info(" id : ", req.params.id);
 
-  const recipe = await Recipe.findByIdAndDelete(req.params.id);
+  const recipe = await Recipe.findById(req.params.id);
 
   if (!recipe) {
     return next(new ErrorResponse("resource not found", 404));
   }
+
+  // Make sure user is recipe owner
+  if (recipe.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to access the resource`,
+        403
+      )
+    );
+  }
+  recipe.remove();
   res.sendStatus(202);
 });
