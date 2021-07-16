@@ -35,6 +35,10 @@ const RecipeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
@@ -50,12 +54,19 @@ const RecipeSchema = new mongoose.Schema({
     enum: ["Public", "Private"],
     default: "Private",
   },
+  todo: {
+    type: Boolean,
+    default: false,
+  },
+  personalRating: Number,
+  publicRating: Number,
 });
 
 RecipeSchema.pre("save", function (next) {
   this.slug = slugify(this.name, {
     lower: true,
   });
+  this.updatedAt = Date.now;
   next();
 });
 
