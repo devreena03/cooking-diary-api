@@ -61,7 +61,7 @@ exports.createCategory = asyncHandler(async (req, res, next) => {
 exports.updateCategory = asyncHandler(async (req, res, next) => {
   log.info("body data", req.body);
 
-  const category = await Category.findById(req.params.id);
+  let category = await Category.findById(req.params.id);
 
   if (!category) {
     return next(new ErrorResponse("resource not found", 404));

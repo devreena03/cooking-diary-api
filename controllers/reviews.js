@@ -5,20 +5,10 @@ const asyncHandler = require("../middlewares/async");
 
 // @desc    GET all Reviews for a recipe
 // @route   GET /api/v1/recipes/:recipeId/reviews
+// @route   GET /api/v1/reviews
 // @access  Public
 exports.getReviewsForRecipe = asyncHandler(async (req, res, next) => {
-  console.log(req.params.recipeId);
-  if (req.params.recipeId) {
-    req.query.recipe = req.params.recipeId;
-    const reviews = await Review.find({ recipe: req.params.recipeId });
-    res.status(200).json({
-      success: true,
-      count: reviews.length,
-      data: reviews,
-    });
-  } else {
-    res.status(200).json(res.advancedResults);
-  }
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc    GET single Review by Id
@@ -38,7 +28,7 @@ exports.getReviewById = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Add a review for recipe
-// @route   POST /api/v1/Reviews
+// @route   POST /api/v1/recipies/:recipeId/reviews
 // @access  Private
 exports.addReview = asyncHandler(async (req, res, next) => {
   const recipeid = req.params.recipeId;
@@ -49,6 +39,10 @@ exports.addReview = asyncHandler(async (req, res, next) => {
   const recipe = await Recipe.findById(recipeid);
   if (!recipe) {
     return next(new ErrorResponse(`No recipe found with id ${recipeid}`, 404));
+  }
+
+  if (recipe.visibility == "Private" && recipe.user != req.user.id) {
+    return next(new ErrorResponse(`Not authorized to rate this recipe`, 403));
   }
   const review = await Review.create(req.body);
 

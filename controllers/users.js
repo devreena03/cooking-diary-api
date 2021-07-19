@@ -60,7 +60,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 // @route     DELETE /api/v1/users/:id
 // @access    Private/Admin
 exports.deleteUser = asyncHandler(async (req, res, next) => {
-  await User.findByIdAndDelete(req.params.id);
+  const user = await User.findByIdAndDelete(req.params.id);
 
   if (!user) {
     return next(new ErrorResponse("resource not found", 404));

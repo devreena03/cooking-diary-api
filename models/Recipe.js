@@ -5,7 +5,6 @@ const RecipeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please add a name"],
-    unique: true,
     trim: true,
     maxlength: [50, "Name cannot be more than 50 charcters"],
   },
@@ -61,6 +60,8 @@ const RecipeSchema = new mongoose.Schema({
   personalRating: Number,
   publicRating: Number,
 });
+
+RecipeSchema.index({ name: 1, user: 1 }, { unique: true });
 
 RecipeSchema.pre("save", function (next) {
   this.slug = slugify(this.name, {

@@ -1,4 +1,4 @@
-const advancedResult = (model) => async (req, res, next) => {
+const advancedResult = (model, userFlag) => async (req, res, next) => {
   let query;
   //copy req.query
   let reqQuery = { ...req.query };
@@ -7,6 +7,12 @@ const advancedResult = (model) => async (req, res, next) => {
   let removeFields = ["select", "sort", "pageSize", "page"]; //limit = pageSize
   removeFields.forEach((field) => delete reqQuery[field]);
 
+  //get the request Param field
+  if (req.params.categoryId) {
+    reqQuery.category = req.params.categoryId;
+  } else if (req.params.recipeId) {
+    reqQuery.recipe = req.params.recipeId;
+  }
   //search results only for logged in user
   if (req.user.role !== "admin") {
     reqQuery.user = req.user.id;

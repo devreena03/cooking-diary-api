@@ -8,18 +8,7 @@ const log = require("../utils/Logger")("Recipe controller");
 // @route   GET /api/v1/categories/:categoryId/recipies
 // @access  Private
 exports.getAllrecipies = asyncHandler(async (req, res, next) => {
-  let recipies;
-  if (req.params.categoryId) {
-    log.info("categoryId :", req.params.categoryId);
-    recipies = await Recipe.find({ category: req.params.categoryId });
-    res.status(200).json({
-      success: true,
-      count: recipies.length,
-      data: recipies,
-    });
-  } else {
-    res.status(200).json(res.advancedResults);
-  }
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc    GET single Recipe

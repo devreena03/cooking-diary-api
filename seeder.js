@@ -59,6 +59,10 @@ const deleteData = async () => {
     await User.deleteMany();
     await Review.deleteMany();
 
+    Category.collection.dropIndexes(function (err, results) {
+      console.log(`index dropping error ${err}`);
+    });
+
     console.log("Data Destroyed...".red.inverse);
     process.exit();
   } catch (err) {

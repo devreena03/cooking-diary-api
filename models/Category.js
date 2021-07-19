@@ -34,6 +34,8 @@ const CategorySchema = new mongoose.Schema(
   }
 );
 
+CategorySchema.index({ name: 1, user: 1 }, { unique: true });
+
 CategorySchema.pre("save", function (next) {
   this.slug = slugify(this.name, {
     lower: true,
