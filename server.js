@@ -11,12 +11,15 @@ const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
 const cors = require("cors");
+// const swaggerJsDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
 
 //load config file
 dotenv.config({ path: "./config/config.env" });
 
 //loads local files
 const connectDb = require("./config/db");
+
 const categoriesRouter = require("./routes/categories");
 const recipiesRouter = require("./routes/recipies");
 const authRouter = require("./routes/auth");
@@ -67,6 +70,29 @@ app.use(cors());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/api-document", (req, res) =>
+  res.sendFile(__dirname + "/public/views/api-document.html")
+);
+
+// // Extended: https://swagger.io/specification/#infoObject
+// const swaggerOptions = {
+//   swaggerDefinition: {
+//     info: {
+//       version: "1.0.0",
+//       title: "cooking API",
+//       description: "Cooking diary API document",
+//       contact: {
+//         name: "Amazing Developer",
+//       },
+//       servers: ["http://localhost:4000"],
+//     },
+//   },
+//   //
+//   apis: ["./routes/*.js"],
+// };
+
+// const swaggerDocs = swaggerJsDoc(swaggerOptions);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/recipies", recipiesRouter);

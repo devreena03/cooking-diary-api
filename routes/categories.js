@@ -19,6 +19,16 @@ router.use("/:categoryId/recipies", recipiesRouter);
 
 router.use(protect);
 
+// Routes
+/**
+ * @swagger
+ * /api/v1/categories :
+ *  get:
+ *    description: Use to request all categories
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 router
   .route("/")
   .get(advancedResults(Category), getAllCategories)

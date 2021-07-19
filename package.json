@@ -29,6 +29,8 @@
     "nodemailer": "^6.6.2",
     "simple-node-logger": "^18.12.24",
     "slugify": "^1.5.3",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
